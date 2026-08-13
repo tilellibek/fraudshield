@@ -15,6 +15,7 @@ from fastapi import (
     UploadFile,
 )
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from backend.database import (
@@ -688,3 +689,8 @@ async def predict_file(
 
     finally:
         await fichier.close()
+app.mount(
+    "/",
+    StaticFiles(directory=RACINE / "frontend", html=True),
+    name="frontend",
+)
