@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://fraudshield-2srp.onrender.com";
 const formulaire = document.getElementById("formulaire-connexion");
 const bouton = document.getElementById("bouton-connexion");
 const message = document.getElementById("message-connexion");
