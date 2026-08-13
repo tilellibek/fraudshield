@@ -1,0 +1,12 @@
+{
+    "seuil_final": 0.9,
+    "seuil_max_f1": 0.963,
+    "critere": "Meilleur F1-score avec un recall minimal de 90 %",
+    "precision_validation": 0.8482,
+    "recall_validation": 0.9007,
+    "f1_validation": 0.8737,
+    "fp_validation": 242,
+    "fn_validation": 149,
+    "tp_validation": 1352,
+    "tn_validation": 257592
+}

@@ -1,0 +1,13 @@
+log_amt,age,hour,day_of_week,month,is_weekend,is_night,distance_km,log_city_pop,category,gender
+3.5,35,14,2,8,0,0,12.5,10.82,grocery_pos,F
+6.75,48,2,6,8,1,1,320.4,7.6,shopping_net,M
+4.2,29,23,5,8,1,1,85.3,9.1,gas_transport,F
+2.8,62,11,1,8,0,0,4.7,11.25,food_dining,M
+7.1,41,1,4,12,0,1,510.8,6.95,shopping_net,F
+3.15,24,16,0,5,0,0,2.2,12.3,entertainment,M
+5.9,55,3,6,11,1,1,245.6,8.15,misc_net,F
+2.45,37,9,3,3,0,0,6.8,10.4,health_fitness,F
+6.3,68,22,5,1,1,1,430.2,7.25,grocery_pos,M
+3.85,31,13,2,7,0,0,18.9,9.75,home,F
+5.45,46,0,6,10,1,1,190.5,8.6,travel,M
+2.95,52,18,4,6,0,0,9.4,11.05,personal_care,F

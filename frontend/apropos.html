@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Présentation de FraudShield, application d’aide à la détection de fraude bancaire"
+    >
+
+    <title>À propos — FraudShield</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .presentation-projet {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+
+        .texte-presentation {
+            font-size: 1.03rem;
+            line-height: 1.75;
+        }
+
+        .texte-presentation p {
+            margin: 0 0 15px;
+            color: var(--texte-secondaire);
+        }
+
+        .texte-presentation strong {
+            color: var(--texte);
+        }
+
+        .carte-modele {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(
+                145deg,
+                rgba(59, 130, 246, 0.18),
+                rgba(168, 85, 247, 0.10)
+            );
+        }
+
+        .carte-modele::after {
+            position: absolute;
+            right: -45px;
+            bottom: -45px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            content: "";
+        }
+
+        .modele-sigle {
+            display: grid;
+            width: 66px;
+            height: 66px;
+            margin-bottom: 22px;
+            place-items: center;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--bleu), var(--violet));
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .carte-modele h3 {
+            margin: 0 0 10px;
+            font-size: 1.45rem;
+        }
+
+        .carte-modele p {
+            color: var(--texte-secondaire);
+            line-height: 1.6;
+        }
+
+        .seuil-modele {
+            display: flex;
+            align-items: end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .seuil-modele strong {
+            color: var(--bleu-clair);
+            font-size: 2.5rem;
+        }
+
+        .seuil-modele span {
+            padding-bottom: 7px;
+            color: var(--texte-secondaire);
+        }
+
+        .grille-informations {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .carte-information {
+            min-height: 220px;
+        }
+
+        .numero-information {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 18px;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(59, 130, 246, 0.14);
+            color: var(--bleu-clair);
+            font-weight: 800;
+        }
+
+        .carte-information h3 {
+            margin: 0 0 11px;
+        }
+
+        .carte-information p {
+            margin: 0;
+            color: var(--texte-secondaire);
+            line-height: 1.65;
+        }
+
+        .grille-technique {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .technologie {
+            padding: 17px;
+            border: 1px solid var(--bordure);
+            border-radius: 12px;
+            background: var(--panneau-clair);
+        }
+
+        .technologie strong,
+        .technologie span {
+            display: block;
+        }
+
+        .technologie span {
+            margin-top: 6px;
+            color: var(--texte-secondaire);
+            font-size: 0.82rem;
+        }
+
+        .liste-variables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 20px;
+        }
+
+        .liste-variables code {
+            padding: 7px 10px;
+            border: 1px solid var(--bordure);
+            border-radius: 8px;
+            background: var(--fond-secondaire);
+            color: var(--bleu-clair);
+        }
+
+        .avertissement-systeme {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-top: 22px;
+            border-color: rgba(245, 158, 11, 0.35);
+            background: rgba(245, 158, 11, 0.07);
+        }
+
+        .icone-avertissement {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(245, 158, 11, 0.16);
+            color: #fbbf24;
+            font-weight: 800;
+        }
+
+        .avertissement-systeme h3 {
+            margin: 0 0 8px;
+        }
+
+        .avertissement-systeme p {
+            margin: 0;
+            color: var(--texte-secondaire);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 1050px) {
+            .presentation-projet {
+                grid-template-columns: 1fr;
+            }
+
+            .grille-informations {
+                grid-template-columns: 1fr;
+            }
+
+            .grille-technique {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grille-technique {
+                grid-template-columns: 1fr;
+            }
+
+            .avertissement-systeme {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icone">FS</div>
+
+            <div>
+                <strong>FraudShield</strong>
+                <span>Analyse intelligente</span>
+            </div>
+        </div>
+
+        <nav class="navigation" aria-label="Navigation principale">
+            <a href="index.html" class="lien-navigation">
+                <span class="icone-navigation">⌂</span>
+                <span>Accueil</span>
+            </a>
+
+            <a href="dashboard.html" class="lien-navigation">
+                <span class="icone-navigation">▦</span>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="prediction.html" class="lien-navigation">
+                <span class="icone-navigation">⌕</span>
+                <span>Nouvelle analyse</span>
+            </a>
+
+            <a href="fichier.html" class="lien-navigation">
+                <span class="icone-navigation">⇧</span>
+                <span>Analyse de fichier</span>
+            </a>
+
+            <a href="alertes.html" class="lien-navigation">
+                <span class="icone-navigation">!</span>
+                <span>Alertes</span>
+            </a>
+
+            <a href="historique.html" class="lien-navigation">
+                <span class="icone-navigation">↻</span>
+                <span>Historique</span>
+            </a>
+
+            <a href="apropos.html" class="lien-navigation actif">
+                <span class="icone-navigation">i</span>
+                <span>À propos</span>
+            </a>
+        </nav>
+
+        <div class="statut-systeme">
+            <span class="point-statut"></span>
+
+            <div>
+                <strong>Vérification de l’API</strong>
+                <small>Connexion en cours...</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <div class="application">
+
+        <header class="barre-superieure">
+            <button
+                type="button"
+                id="bouton-menu"
+                class="bouton-menu"
+                aria-label="Ouvrir le menu"
+            >
+                ☰
+            </button>
+
+            <div>
+                <p class="sur-titre">Présentation du système</p>
+                <h1>À propos de FraudShield</h1>
+            </div>
+
+            <div class="profil">
+                <div class="profil-texte">
+                    <strong>Administrateur</strong>
+                    <span>Analyste fraude</span>
+                </div>
+
+                <div class="avatar">AD</div>
+            </div>
+        </header>
+
+
+        <main class="contenu">
+
+            <section class="entete-page">
+                <div>
+                    <span class="badge">Intelligence artificielle</span>
+                    <h2>Un outil d’aide à la détection de fraude</h2>
+
+                    <p>
+                        FraudShield assiste l’analyste dans l’identification
+                        et la priorisation des transactions bancaires
+                        présentant un risque de fraude.
+                    </p>
+                </div>
+            </section>
+
+
+            <section class="presentation-projet">
+
+                <article class="panneau texte-presentation">
+                    <div class="entete-panneau">
+                        <div>
+                            <p class="sur-titre">Objectif</p>
+                            <h2>Pourquoi FraudShield ?</h2>
+                        </div>
+                    </div>
+
+                    <p>
+                        Le volume élevé de transactions rend leur contrôle
+                        manuel difficile. FraudShield utilise un modèle de
+                        <strong>classification supervisée</strong> pour
+                        estimer automatiquement la probabilité de fraude de
+                        chaque opération.
+                    </p>
+
+                    <p>
+                        L’application permet d’analyser une transaction
+                        individuelle ou un fichier CSV, de classer les
+                        résultats par niveau de risque, puis de conserver les
+                        analyses afin d’assurer leur traçabilité.
+                    </p>
+
+                    <p>
+                        Le résultat produit constitue une
+                        <strong>aide à la décision</strong> destinée à
+                        orienter le travail de l’analyste fraude.
+                    </p>
+                </article>
+
+
+                <article class="panneau carte-modele">
+                    <div class="modele-sigle">XGB</div>
+
+                    <p class="sur-titre">Modèle final</p>
+                    <h3>XGBoost optimisé</h3>
+
+                    <p>
+                        Pipeline de classification entraîné pour distinguer
+                        les transactions légitimes des transactions
+                        potentiellement frauduleuses.
+                    </p>
+
+                    <div class="seuil-modele">
+                        <strong>0,90</strong>
+                        <span>seuil de classification</span>
+                    </div>
+                </article>
+
+            </section>
+
+
+            <section class="grille-informations">
+
+                <article class="panneau carte-information">
+                    <div class="numero-information">01</div>
+                    <h3>Collecte des données</h3>
+
+                    <p>
+                        L’analyste saisit une transaction ou importe un
+                        fichier CSV contenant les variables attendues par le
+                        pipeline.
+                    </p>
+                </article>
+
+                <article class="panneau carte-information">
+                    <div class="numero-information">02</div>
+                    <h3>Analyse par XGBoost</h3>
+
+                    <p>
+                        Le modèle calcule une probabilité de fraude. Le seuil
+                        de 0,90 transforme ensuite cette probabilité en une
+                        prédiction binaire.
+                    </p>
+                </article>
+
+                <article class="panneau carte-information">
+                    <div class="numero-information">03</div>
+                    <h3>Décision et suivi</h3>
+
+                    <p>
+                        Les résultats sont classés par risque, enregistrés
+                        dans SQLite et consultables dans le tableau de bord
+                        et l’historique.
+                    </p>
+                </article>
+
+            </section>
+
+
+            <section class="panneau">
+                <div class="entete-panneau">
+                    <div>
+                        <p class="sur-titre">Architecture</p>
+                        <h2>Technologies utilisées</h2>
+                    </div>
+                </div>
+
+                <div class="grille-technique">
+                    <div class="technologie">
+                        <strong>HTML, CSS et JavaScript</strong>
+                        <span>Interface utilisateur responsive</span>
+                    </div>
+
+                    <div class="technologie">
+                        <strong>FastAPI</strong>
+                        <span>API et intégration du modèle</span>
+                    </div>
+
+                    <div class="technologie">
+                        <strong>XGBoost</strong>
+                        <span>Classification des transactions</span>
+                    </div>
+
+                    <div class="technologie">
+                        <strong>SQLite</strong>
+                        <span>Persistance locale des analyses</span>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="panneau" style="margin-top: 22px;">
+                <div class="entete-panneau">
+                    <div>
+                        <p class="sur-titre">Données du modèle</p>
+                        <h2>Variables analysées</h2>
+                    </div>
+
+                    <span class="compteur-champs">11 variables</span>
+                </div>
+
+                <div class="liste-variables">
+                    <code>log_amt</code>
+                    <code>age</code>
+                    <code>hour</code>
+                    <code>day_of_week</code>
+                    <code>month</code>
+                    <code>is_weekend</code>
+                    <code>is_night</code>
+                    <code>distance_km</code>
+                    <code>log_city_pop</code>
+                    <code>category</code>
+                    <code>gender</code>
+                </div>
+            </section>
+
+
+            <section class="panneau avertissement-systeme">
+                <div class="icone-avertissement">!</div>
+
+                <div>
+                    <h3>Limites et responsabilité</h3>
+
+                    <p>
+                        Une prédiction de fraude ne constitue pas une preuve.
+                        Le modèle peut produire des faux positifs ou manquer
+                        certaines fraudes. Toute alerte doit donc être
+                        examinée et validée par un analyste avant qu’une
+                        décision opérationnelle soit prise.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+
+        <footer class="pied-page">
+            <p>FraudShield — Projet de détection de fraude bancaire</p>
+            <p>XGBoost · FastAPI · SQLite · Version 1.0</p>
+        </footer>
+
+    </div>
+
+
+    <div id="fond-menu" class="fond-menu"></div>
+
+    <script src="js/commun.js"></script>
+
+</body>
+
+</html>

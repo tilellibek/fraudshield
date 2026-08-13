@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Application intelligente de détection de fraude bancaire"
+    >
+
+    <title>FraudShield — Détection de fraude bancaire</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icone">FS</div>
+
+            <div>
+                <strong>FraudShield</strong>
+                <span>Analyse intelligente</span>
+            </div>
+        </div>
+
+        <nav class="navigation" aria-label="Navigation principale">
+
+            <a href="index.html" class="lien-navigation actif">
+                <span class="icone-navigation">⌂</span>
+                <span>Accueil</span>
+            </a>
+
+            <a href="dashboard.html" class="lien-navigation">
+                <span class="icone-navigation">▦</span>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="prediction.html" class="lien-navigation">
+                <span class="icone-navigation">⌕</span>
+                <span>Nouvelle analyse</span>
+            </a>
+
+            <a href="fichier.html" class="lien-navigation">
+                <span class="icone-navigation">⇧</span>
+                <span>Analyse de fichier</span>
+            </a>
+
+            <a href="alertes.html" class="lien-navigation">
+                <span class="icone-navigation">!</span>
+                <span>Alertes</span>
+            </a>
+
+            <a href="historique.html" class="lien-navigation">
+                <span class="icone-navigation">↻</span>
+                <span>Historique</span>
+            </a>
+
+            <a href="apropos.html" class="lien-navigation">
+                <span class="icone-navigation">i</span>
+                <span>À propos</span>
+            </a>
+
+        </nav>
+
+        <div class="statut-systeme">
+            <span class="point-statut"></span>
+
+            <div>
+                <strong>API opérationnelle</strong>
+                <small>Modèle XGBoost chargé</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- Contenu principal -->
+    <div class="application">
+
+        <header class="barre-superieure">
+
+            <button
+                type="button"
+                id="bouton-menu"
+                class="bouton-menu"
+                aria-label="Ouvrir le menu"
+            >
+                ☰
+            </button>
+
+            <div>
+                <p class="sur-titre">Système d’aide à la décision</p>
+                <h1>Détection de fraude bancaire</h1>
+            </div>
+
+            <div class="profil">
+                <div class="profil-texte">
+                    <strong>Administrateur</strong>
+                    <span>Analyste fraude</span>
+                </div>
+
+                <div class="avatar">AD</div>
+            </div>
+
+        </header>
+
+
+        <main class="contenu">
+
+            <!-- Présentation -->
+            <section class="hero">
+
+                <div class="hero-contenu">
+
+                    <span class="badge">
+                        Intelligence artificielle
+                    </span>
+
+                    <h2>
+                        Analysez les transactions et détectez les risques
+                        de fraude
+                    </h2>
+
+                    <p>
+                        FraudShield utilise un modèle XGBoost optimisé pour
+                        estimer la probabilité de fraude d’une transaction
+                        bancaire et faciliter la prise de décision.
+                    </p>
+
+                    <div class="actions-hero">
+
+                        <a
+                            href="prediction.html"
+                            class="bouton bouton-principal"
+                        >
+                            Analyser une transaction
+                        </a>
+
+                        <a
+                            href="fichier.html"
+                            class="bouton bouton-secondaire"
+                        >
+                            Importer un fichier CSV
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="carte-risque">
+
+                    <div class="carte-risque-entete">
+                        <span>Surveillance du système</span>
+                        <span class="badge-direct">En ligne</span>
+                    </div>
+
+                    <div class="jauge">
+                        <div class="jauge-centre">
+                            <strong>90 %</strong>
+                            <span>Seuil de décision</span>
+                        </div>
+                    </div>
+
+                    <div class="legende-risque">
+                        <span>
+                            <i class="couleur-faible"></i>
+                            Risque faible
+                        </span>
+
+                        <span>
+                            <i class="couleur-elevee"></i>
+                            Risque élevé
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Indicateurs -->
+            <section class="section">
+
+                <div class="titre-section">
+                    <div>
+                        <p class="sur-titre">Vue d’ensemble</p>
+                        <h2>Indicateurs du système</h2>
+                    </div>
+
+                    <a href="dashboard.html" class="lien-action">
+                        Voir le tableau de bord →
+                    </a>
+                </div>
+
+                <div class="grille-indicateurs">
+
+                    <article class="carte-indicateur">
+                        <div class="icone-carte bleu">AI</div>
+
+                        <div>
+                            <span>Modèle utilisé</span>
+                            <strong>XGBoost</strong>
+                            <small>Pipeline optimisé</small>
+                        </div>
+                    </article>
+
+                    <article class="carte-indicateur">
+                        <div class="icone-carte vert">✓</div>
+
+                        <div>
+                            <span>État du service</span>
+                            <strong>Opérationnel</strong>
+                            <small>API disponible</small>
+                        </div>
+                    </article>
+
+                    <article class="carte-indicateur">
+                        <div class="icone-carte violet">%</div>
+
+                        <div>
+                            <span>Seuil de classification</span>
+                            <strong>90 %</strong>
+                            <small>Seuil optimisé</small>
+                        </div>
+                    </article>
+
+                    <article class="carte-indicateur">
+                        <div class="icone-carte orange">CSV</div>
+
+                        <div>
+                            <span>Mode d’analyse</span>
+                            <strong>Simple et groupé</strong>
+                            <small>Transaction ou fichier</small>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- Fonctionnalités -->
+            <section class="section">
+
+                <div class="titre-section">
+                    <div>
+                        <p class="sur-titre">Fonctionnalités</p>
+                        <h2>Choisissez votre type d’analyse</h2>
+                    </div>
+                </div>
+
+                <div class="grille-modules">
+
+                    <article class="carte-module">
+                        <span class="numero-module">01</span>
+
+                        <h3>Analyse individuelle</h3>
+
+                        <p>
+                            Saisissez les caractéristiques d’une transaction
+                            et obtenez immédiatement sa probabilité de fraude.
+                        </p>
+
+                        <ul>
+                            <li>Résultat instantané</li>
+                            <li>Niveau de risque</li>
+                            <li>Explication des facteurs</li>
+                            <li>Impression du résultat</li>
+                        </ul>
+
+                        <a href="prediction.html">
+                            Commencer l’analyse →
+                        </a>
+                    </article>
+
+                    <article class="carte-module mise-en-avant">
+                        <span class="etiquette-module">Analyse en lot</span>
+                        <span class="numero-module">02</span>
+
+                        <h3>Analyse d’un fichier CSV</h3>
+
+                        <p>
+                            Importez plusieurs transactions et analysez
+                            automatiquement l’ensemble du fichier.
+                        </p>
+
+                        <ul>
+                            <li>Import par glisser-déposer</li>
+                            <li>Analyse de toutes les lignes</li>
+                            <li>Résumé statistique</li>
+                            <li>Export des résultats en CSV</li>
+                        </ul>
+
+                        <a href="fichier.html">
+                            Importer un fichier →
+                        </a>
+                    </article>
+
+                    <article class="carte-module">
+                        <span class="numero-module">03</span>
+
+                        <h3>Historique des analyses</h3>
+
+                        <p>
+                            Consultez les prédictions réalisées et retrouvez
+                            rapidement les transactions suspectes.
+                        </p>
+
+                        <ul>
+                            <li>Recherche et filtres</li>
+                            <li>Détail des prédictions</li>
+                            <li>Conservation locale</li>
+                            <li>Export et impression</li>
+                        </ul>
+
+                        <a href="historique.html">
+                            Consulter l’historique →
+                        </a>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- Processus -->
+            <section class="section panneau-processus">
+
+                <div class="titre-section">
+                    <div>
+                        <p class="sur-titre">Fonctionnement</p>
+                        <h2>Une analyse en trois étapes</h2>
+                    </div>
+                </div>
+
+                <div class="etapes">
+
+                    <article class="etape">
+                        <span>1</span>
+                        <div>
+                            <h3>Saisie des données</h3>
+                            <p>
+                                Renseignez une transaction ou importez un
+                                fichier contenant plusieurs opérations.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="etape">
+                        <span>2</span>
+                        <div>
+                            <h3>Analyse par le modèle</h3>
+                            <p>
+                                Les données sont préparées puis analysées par
+                                le pipeline XGBoost entraîné.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="etape">
+                        <span>3</span>
+                        <div>
+                            <h3>Résultat et décision</h3>
+                            <p>
+                                Le système affiche la probabilité, la décision
+                                et les facteurs associés au niveau de risque.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <footer class="pied-page">
+
+            <p>
+                FraudShield — Projet de détection de fraude bancaire
+            </p>
+
+            <p>
+                Modèle XGBoost · API FastAPI · Version 1.0
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <div id="fond-menu" class="fond-menu"></div>
+
+    <script src="js/commun.js"></script>
+
+</body>
+</html>

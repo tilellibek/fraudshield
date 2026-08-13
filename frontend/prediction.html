@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Analyse individuelle d’une transaction bancaire"
+    >
+
+    <title>Nouvelle analyse — FraudShield</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icone">FS</div>
+
+            <div>
+                <strong>FraudShield</strong>
+                <span>Analyse intelligente</span>
+            </div>
+        </div>
+
+        <nav class="navigation" aria-label="Navigation principale">
+
+            <a href="index.html" class="lien-navigation">
+                <span class="icone-navigation">⌂</span>
+                <span>Accueil</span>
+            </a>
+
+            <a href="dashboard.html" class="lien-navigation">
+                <span class="icone-navigation">▦</span>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="prediction.html" class="lien-navigation actif">
+                <span class="icone-navigation">⌕</span>
+                <span>Nouvelle analyse</span>
+            </a>
+
+            <a href="fichier.html" class="lien-navigation">
+                <span class="icone-navigation">⇧</span>
+                <span>Analyse de fichier</span>
+            </a>
+
+            <a href="alertes.html" class="lien-navigation">
+                <span class="icone-navigation">!</span>
+                <span>Alertes</span>
+            </a>
+
+            <a href="historique.html" class="lien-navigation">
+                <span class="icone-navigation">↻</span>
+                <span>Historique</span>
+            </a>
+
+            <a href="apropos.html" class="lien-navigation">
+                <span class="icone-navigation">i</span>
+                <span>À propos</span>
+            </a>
+
+        </nav>
+
+        <div class="statut-systeme">
+            <span class="point-statut"></span>
+
+            <div>
+                <strong>Vérification de l’API</strong>
+                <small>Connexion en cours...</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <div class="application">
+
+        <header class="barre-superieure">
+
+            <button
+                type="button"
+                id="bouton-menu"
+                class="bouton-menu"
+                aria-label="Ouvrir le menu"
+            >
+                ☰
+            </button>
+
+            <div>
+                <p class="sur-titre">Prédiction individuelle</p>
+                <h1>Analyser une transaction</h1>
+            </div>
+
+            <div class="profil">
+                <div class="profil-texte">
+                    <strong>Administrateur</strong>
+                    <span>Analyste fraude</span>
+                </div>
+
+                <div class="avatar">AD</div>
+            </div>
+
+        </header>
+
+
+        <main class="contenu">
+
+            <section class="entete-page">
+
+                <div>
+                    <span class="badge">Analyse XGBoost</span>
+
+                    <h2>Évaluation du risque de fraude</h2>
+
+                    <p>
+                        Renseignez les caractéristiques de la transaction.
+                        Le système calculera sa probabilité de fraude et
+                        expliquera les principaux facteurs de risque.
+                    </p>
+                </div>
+
+                <div class="actions-exemples">
+
+                    <button
+                        type="button"
+                        class="bouton bouton-secondaire"
+                        id="exemple-legitime"
+                    >
+                        Exemple légitime
+                    </button>
+
+                    <button
+                        type="button"
+                        class="bouton bouton-danger"
+                        id="exemple-fraude"
+                    >
+                        Exemple à risque
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <div class="grille-analyse">
+
+                <!-- Formulaire -->
+                <section class="panneau formulaire-transaction">
+
+                    <div class="entete-panneau">
+                        <div>
+                            <p class="sur-titre">Données d’entrée</p>
+                            <h2>Caractéristiques de la transaction</h2>
+                        </div>
+
+                        <span class="compteur-champs">11 variables</span>
+                    </div>
+
+                    <form id="formulaire-prediction">
+
+                        <div class="groupe-formulaire">
+
+                            <div class="titre-groupe">
+                                <span>01</span>
+
+                                <div>
+                                    <h3>Transaction</h3>
+                                    <p>Montant, heure et date de l’opération</p>
+                                </div>
+                            </div>
+
+                            <div class="grille-formulaire">
+
+                                <div class="champ">
+                                    <label for="montant">Montant (€)</label>
+
+                                    <input
+                                        type="number"
+                                        id="montant"
+                                        min="0"
+                                        step="0.01"
+                                        placeholder="Exemple : 75.50"
+                                        required
+                                    >
+
+                                    <small>
+                                        Le logarithme sera calculé automatiquement.
+                                    </small>
+                                </div>
+
+                                <div class="champ">
+                                    <label for="heure">Heure</label>
+
+                                    <input
+                                        type="number"
+                                        id="heure"
+                                        min="0"
+                                        max="23"
+                                        placeholder="0 à 23"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="champ">
+                                    <label for="jour">Jour de la semaine</label>
+
+                                    <select id="jour" required>
+                                        <option value="">Sélectionner</option>
+                                        <option value="0">Lundi</option>
+                                        <option value="1">Mardi</option>
+                                        <option value="2">Mercredi</option>
+                                        <option value="3">Jeudi</option>
+                                        <option value="4">Vendredi</option>
+                                        <option value="5">Samedi</option>
+                                        <option value="6">Dimanche</option>
+                                    </select>
+                                </div>
+
+                                <div class="champ">
+                                    <label for="mois">Mois</label>
+
+                                    <select id="mois" required>
+                                        <option value="">Sélectionner</option>
+                                        <option value="1">Janvier</option>
+                                        <option value="2">Février</option>
+                                        <option value="3">Mars</option>
+                                        <option value="4">Avril</option>
+                                        <option value="5">Mai</option>
+                                        <option value="6">Juin</option>
+                                        <option value="7">Juillet</option>
+                                        <option value="8">Août</option>
+                                        <option value="9">Septembre</option>
+                                        <option value="10">Octobre</option>
+                                        <option value="11">Novembre</option>
+                                        <option value="12">Décembre</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="groupe-formulaire">
+
+                            <div class="titre-groupe">
+                                <span>02</span>
+
+                                <div>
+                                    <h3>Client et environnement</h3>
+                                    <p>Profil du client et contexte géographique</p>
+                                </div>
+                            </div>
+
+                            <div class="grille-formulaire">
+
+                                <div class="champ">
+                                    <label for="age">Âge du client</label>
+
+                                    <input
+                                        type="number"
+                                        id="age"
+                                        min="0"
+                                        max="120"
+                                        placeholder="Exemple : 35"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="champ">
+                                    <label for="genre">Genre</label>
+
+                                    <select id="genre" required>
+                                        <option value="">Sélectionner</option>
+                                        <option value="M">Masculin</option>
+                                        <option value="F">Féminin</option>
+                                    </select>
+                                </div>
+
+                                <div class="champ">
+                                    <label for="distance">
+                                        Distance client–commerçant (km)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="distance"
+                                        min="0"
+                                        step="0.01"
+                                        placeholder="Exemple : 12.5"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="champ">
+                                    <label for="population">
+                                        Population de la ville
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="population"
+                                        min="1"
+                                        step="1"
+                                        placeholder="Exemple : 50000"
+                                        required
+                                    >
+
+                                    <small>
+                                        Le logarithme sera calculé automatiquement.
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="groupe-formulaire">
+
+                            <div class="titre-groupe">
+                                <span>03</span>
+
+                                <div>
+                                    <h3>Type et contexte</h3>
+                                    <p>Catégorie commerciale et indicateurs temporels</p>
+                                </div>
+                            </div>
+
+                            <div class="grille-formulaire">
+
+                                <div class="champ champ-large">
+                                    <label for="categorie">
+                                        Catégorie de la transaction
+                                    </label>
+
+                                    <select id="categorie" required>
+                                        <option value="">Sélectionner</option>
+                                        <option value="entertainment">
+                                            Divertissement
+                                        </option>
+                                        <option value="food_dining">
+                                            Restauration
+                                        </option>
+                                        <option value="gas_transport">
+                                            Carburant et transport
+                                        </option>
+                                        <option value="grocery_net">
+                                            Épicerie en ligne
+                                        </option>
+                                        <option value="grocery_pos">
+                                            Épicerie en magasin
+                                        </option>
+                                        <option value="health_fitness">
+                                            Santé et fitness
+                                        </option>
+                                        <option value="home">
+                                            Maison
+                                        </option>
+                                        <option value="kids_pets">
+                                            Enfants et animaux
+                                        </option>
+                                        <option value="misc_net">
+                                            Divers en ligne
+                                        </option>
+                                        <option value="misc_pos">
+                                            Divers en magasin
+                                        </option>
+                                        <option value="personal_care">
+                                            Soins personnels
+                                        </option>
+                                        <option value="shopping_net">
+                                            Achats en ligne
+                                        </option>
+                                        <option value="shopping_pos">
+                                            Achats en magasin
+                                        </option>
+                                        <option value="travel">
+                                            Voyage
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="champ champ-interrupteur">
+                                    <span>Transaction de nuit</span>
+
+                                    <label class="interrupteur">
+                                        <input
+                                            type="checkbox"
+                                            id="est-nuit"
+                                        >
+                                        <span class="curseur"></span>
+                                    </label>
+
+                                    <small>
+                                        Activé automatiquement entre 0 h et 5 h.
+                                    </small>
+                                </div>
+
+                                <div class="champ champ-interrupteur">
+                                    <span>Transaction le week-end</span>
+
+                                    <label class="interrupteur">
+                                        <input
+                                            type="checkbox"
+                                            id="est-weekend"
+                                        >
+                                        <span class="curseur"></span>
+                                    </label>
+
+                                    <small>
+                                        Activé automatiquement samedi ou dimanche.
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="actions-formulaire">
+
+                            <button
+                                type="reset"
+                                class="bouton bouton-secondaire"
+                                id="bouton-reinitialiser"
+                            >
+                                Réinitialiser
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="bouton bouton-principal"
+                                id="bouton-analyser"
+                            >
+                                <span id="texte-analyse">
+                                    Analyser la transaction
+                                </span>
+
+                                <span
+                                    id="chargement"
+                                    class="chargement cache"
+                                ></span>
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <!-- Résultat -->
+                <aside class="colonne-resultat">
+
+                    <section class="panneau resultat-vide" id="resultat-vide">
+
+                        <div class="icone-attente">AI</div>
+
+                        <h2>En attente d’une analyse</h2>
+
+                        <p>
+                            Complétez le formulaire pour obtenir une estimation
+                            du risque de fraude.
+                        </p>
+
+                    </section>
+
+
+                    <section
+                        class="panneau resultat-analyse cache"
+                        id="resultat-analyse"
+                    >
+
+                        <div class="entete-resultat">
+
+                            <div>
+                                <p class="sur-titre">Décision du modèle</p>
+                                <h2 id="decision-resultat">—</h2>
+                            </div>
+
+                            <span
+                                class="etiquette-decision"
+                                id="etiquette-decision"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+
+                        <div class="cercle-probabilite" id="cercle-probabilite">
+
+                            <div>
+                                <strong id="probabilite-resultat">0 %</strong>
+                                <span>Probabilité de fraude</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="ligne-seuil">
+                            <span>Seuil de classification</span>
+                            <strong id="seuil-resultat">90 %</strong>
+                        </div>
+
+
+                        <div class="niveau-risque">
+
+                            <div class="ligne-niveau">
+                                <span>Niveau de risque</span>
+                                <strong id="niveau-resultat">—</strong>
+                            </div>
+
+                            <div class="barre-risque">
+                                <span id="progression-risque"></span>
+                            </div>
+
+                            <div class="graduations-risque">
+                                <span>Faible</span>
+                                <span>Modéré</span>
+                                <span>Élevé</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="facteurs-risque">
+
+                            <h3>Facteurs observés</h3>
+
+                            <ul id="liste-facteurs">
+                                <li>Aucun facteur disponible.</li>
+                            </ul>
+
+                            <p class="avertissement-explication">
+                                Ces facteurs constituent une explication
+                                indicative fondée sur les données saisies.
+                                Ils ne représentent pas une interprétation
+                                SHAP du modèle.
+                            </p>
+
+                        </div>
+
+
+                        <div class="actions-resultat">
+
+                            <button
+                                type="button"
+                                class="bouton bouton-secondaire"
+                                id="bouton-imprimer"
+                            >
+                                Imprimer
+                            </button>
+
+                            <button
+                                type="button"
+                                class="bouton bouton-principal"
+                                id="bouton-nouvelle-analyse"
+                            >
+                                Nouvelle analyse
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <section class="panneau informations-modele">
+
+                        <h3>Informations du modèle</h3>
+
+                        <dl>
+                            <div>
+                                <dt>Algorithme</dt>
+                                <dd>XGBoost optimisé</dd>
+                            </div>
+
+                            <div>
+                                <dt>Type</dt>
+                                <dd>Classification binaire</dd>
+                            </div>
+
+                            <div>
+                                <dt>Variables utilisées</dt>
+                                <dd>11</dd>
+                            </div>
+
+                            <div>
+                                <dt>Sortie</dt>
+                                <dd>Probabilité de fraude</dd>
+                            </div>
+                        </dl>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </main>
+
+
+        <footer class="pied-page">
+
+            <p>FraudShield — Analyse individuelle</p>
+
+            <p>
+                Le résultat est une aide à la décision et doit être validé
+                par un analyste.
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <div id="fond-menu" class="fond-menu"></div>
+
+    <div id="notification" class="notification" role="status"></div>
+
+    <script src="js/commun.js"></script>
+    <script src="js/prediction.js"></script>
+
+</body>
+</html>

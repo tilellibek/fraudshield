@@ -1,0 +1,2 @@
+﻿log_amt,age,hour,day_of_week,month,is_weekend,is_night,distance_km,log_city_pop,category,gender
+4.25,35,14,2,8,0,0,12.5,10.82,grocery_pos,F

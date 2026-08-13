@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Historique — FraudShield</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .barre-historique {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .barre-historique input,
+        .barre-historique select {
+            padding: 12px 14px;
+            border: 1px solid var(--bordure);
+            border-radius: 10px;
+            background: var(--fond-secondaire);
+            color: var(--texte);
+        }
+
+        .barre-historique input {
+            min-width: 220px;
+            flex: 1;
+        }
+
+        .barre-historique input:focus,
+        .barre-historique select:focus {
+            border-color: var(--bleu);
+            outline: none;
+        }
+
+        .conteneur-tableau {
+            overflow-x: auto;
+        }
+
+        .tableau-historique {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tableau-historique th,
+        .tableau-historique td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--bordure);
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .tableau-historique th {
+            color: var(--texte-secondaire);
+            font-size: 0.75rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .tableau-historique tbody tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .badge-type,
+        .badge-risque,
+        .badge-decision {
+            display: inline-block;
+            padding: 6px 9px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .badge-type {
+            background: rgba(59, 130, 246, 0.14);
+            color: var(--bleu-clair);
+        }
+
+        .badge-risque.eleve,
+        .badge-decision.fraude {
+            background: rgba(239, 68, 68, 0.14);
+            color: #f87171;
+        }
+
+        .badge-risque.moyen {
+            background: rgba(245, 158, 11, 0.14);
+            color: #fbbf24;
+        }
+
+        .badge-risque.faible,
+        .badge-decision.legitime {
+            background: rgba(34, 197, 94, 0.14);
+            color: #4ade80;
+        }
+
+        .nombre-fraudes {
+            color: var(--rouge);
+            font-weight: 700;
+        }
+
+        .bouton-ouvrir {
+            padding: 7px 11px;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--bleu-clair);
+        }
+
+        .bouton-ouvrir:hover {
+            background: rgba(59, 130, 246, 0.24);
+        }
+
+        .etat-historique {
+            padding: 38px 20px;
+            text-align: center;
+            color: var(--texte-secondaire);
+        }
+
+        .detail-analyse {
+            margin-top: 22px;
+        }
+
+        .resume-detail {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .resume-detail > div {
+            padding: 15px;
+            border: 1px solid var(--bordure);
+            border-radius: 11px;
+            background: var(--panneau-clair);
+        }
+
+        .resume-detail span,
+        .resume-detail strong {
+            display: block;
+        }
+
+        .resume-detail span {
+            color: var(--texte-secondaire);
+            font-size: 0.78rem;
+        }
+
+        .resume-detail strong {
+            margin-top: 8px;
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 800px) {
+            .resume-detail {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .barre-historique {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .resume-detail {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icone">FS</div>
+
+            <div>
+                <strong>FraudShield</strong>
+                <span>Analyse intelligente</span>
+            </div>
+        </div>
+
+        <nav class="navigation" aria-label="Navigation principale">
+            <a href="index.html" class="lien-navigation">
+                <span class="icone-navigation">⌂</span>
+                <span>Accueil</span>
+            </a>
+
+            <a href="dashboard.html" class="lien-navigation">
+                <span class="icone-navigation">▦</span>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="prediction.html" class="lien-navigation">
+                <span class="icone-navigation">⌕</span>
+                <span>Nouvelle analyse</span>
+            </a>
+
+            <a href="fichier.html" class="lien-navigation">
+                <span class="icone-navigation">⇧</span>
+                <span>Analyse de fichier</span>
+            </a>
+
+            <a href="alertes.html" class="lien-navigation">
+                <span class="icone-navigation">!</span>
+                <span>Alertes</span>
+            </a>
+
+            <a href="historique.html" class="lien-navigation actif">
+                <span class="icone-navigation">↻</span>
+                <span>Historique</span>
+            </a>
+
+            <a href="apropos.html" class="lien-navigation">
+                <span class="icone-navigation">i</span>
+                <span>À propos</span>
+            </a>
+        </nav>
+
+        <div class="statut-systeme">
+            <span class="point-statut"></span>
+
+            <div>
+                <strong>Vérification de l’API</strong>
+                <small>Connexion en cours...</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <div class="application">
+
+        <header class="barre-superieure">
+            <button
+                type="button"
+                id="bouton-menu"
+                class="bouton-menu"
+                aria-label="Ouvrir le menu"
+            >
+                ☰
+            </button>
+
+            <div>
+                <p class="sur-titre">Traçabilité</p>
+                <h1>Historique des analyses</h1>
+            </div>
+
+            <div class="profil">
+                <div class="profil-texte">
+                    <strong>Administrateur</strong>
+                    <span>Analyste fraude</span>
+                </div>
+
+                <div class="avatar">AD</div>
+            </div>
+        </header>
+
+
+        <main class="contenu">
+
+            <section class="entete-page">
+                <div>
+                    <span class="badge">Base SQLite</span>
+                    <h2>Analyses enregistrées</h2>
+
+                    <p>
+                        Retrouvez les analyses précédentes et consultez
+                        leurs transactions classées par niveau de risque.
+                    </p>
+                </div>
+            </section>
+
+
+            <section class="panneau">
+
+                <div class="barre-historique">
+                    <input
+                        type="search"
+                        id="recherche-historique"
+                        placeholder="Rechercher un fichier..."
+                        aria-label="Rechercher une analyse"
+                    >
+
+                    <select id="filtre-type" aria-label="Filtrer par type">
+                        <option value="tous">Tous les types</option>
+                        <option value="fichier">Fichiers CSV</option>
+                        <option value="individuelle">
+                            Analyses individuelles
+                        </option>
+                    </select>
+                </div>
+
+                <div class="conteneur-tableau">
+                    <table class="tableau-historique">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Nom</th>
+                                <th>Transactions</th>
+                                <th>Fraudes</th>
+                                <th>Taux</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="corps-historique"></tbody>
+                    </table>
+                </div>
+
+                <p
+                    class="etat-historique cache"
+                    id="historique-vide"
+                >
+                    Aucune analyse enregistrée.
+                </p>
+
+            </section>
+
+
+            <section
+                class="panneau detail-analyse cache"
+                id="detail-analyse"
+            >
+
+                <div class="entete-panneau">
+                    <div>
+                        <p class="sur-titre">Détail de l’analyse</p>
+                        <h2 id="titre-detail">Analyse</h2>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="bouton bouton-secondaire"
+                        id="fermer-detail"
+                    >
+                        Fermer
+                    </button>
+                </div>
+
+                <div class="resume-detail">
+                    <div>
+                        <span>Date</span>
+                        <strong id="detail-date">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Transactions</span>
+                        <strong id="detail-transactions">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Fraudes</span>
+                        <strong id="detail-fraudes">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Taux de fraude</span>
+                        <strong id="detail-taux">—</strong>
+                    </div>
+                </div>
+
+                <div class="conteneur-tableau">
+                    <table class="tableau-historique">
+                        <thead>
+                            <tr>
+                                <th>Ligne</th>
+                                <th>Risque</th>
+                                <th>Probabilité</th>
+                                <th>Montant (log)</th>
+                                <th>Catégorie</th>
+                                <th>Heure</th>
+                                <th>Décision</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="corps-detail"></tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <footer class="pied-page">
+            <p>FraudShield — Historique</p>
+            <p>Traçabilité des analyses enregistrées dans SQLite</p>
+        </footer>
+
+    </div>
+
+
+    <div id="fond-menu" class="fond-menu"></div>
+
+    <div
+        id="notification"
+        class="notification"
+        role="status"
+    ></div>
+
+    <script src="js/commun.js"></script>
+    <script src="js/historique.js"></script>
+
+</body>
+
+</html>

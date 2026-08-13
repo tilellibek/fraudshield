@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Tableau de bord — FraudShield</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .grille-indicateurs-dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .indicateur-dashboard {
+            position: relative;
+            overflow: hidden;
+            min-height: 150px;
+        }
+
+        .indicateur-dashboard::after {
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.10);
+            content: "";
+        }
+
+        .indicateur-dashboard span,
+        .indicateur-dashboard small {
+            display: block;
+            color: var(--texte-secondaire);
+        }
+
+        .indicateur-dashboard strong {
+            display: block;
+            margin: 15px 0 8px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+
+        .indicateur-dashboard.fraude strong {
+            color: var(--rouge);
+        }
+
+        .grille-dashboard {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.8fr) minmax(430px, 1.2fr);
+            gap: 22px;
+        }
+
+        .repartition {
+            display: grid;
+            gap: 28px;
+            margin-top: 28px;
+        }
+
+        .ligne-repartition {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .ligne-repartition > span {
+            color: var(--texte-secondaire);
+        }
+
+        .barre-repartition {
+            grid-column: 1 / -1;
+            height: 12px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: var(--panneau-clair);
+        }
+
+        .barre-repartition i {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--vert);
+            transition: width 0.6s ease;
+        }
+
+        .barre-repartition.fraude i {
+            background: var(--rouge);
+        }
+
+        .liste-analyses-dashboard {
+            display: grid;
+            margin-top: 10px;
+        }
+
+        .analyse-recente {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 16px 2px;
+            border-bottom: 1px solid var(--bordure);
+        }
+
+        .analyse-recente:last-child {
+            border-bottom: 0;
+        }
+
+        .analyse-recente strong,
+        .analyse-recente span {
+            display: block;
+        }
+
+        .analyse-recente span {
+            margin-top: 5px;
+            color: var(--texte-secondaire);
+            font-size: 0.78rem;
+        }
+
+        .resume-analyse {
+            flex: 0 0 auto;
+            text-align: right;
+        }
+
+        .resume-analyse strong {
+            color: var(--rouge);
+        }
+
+        .etat-dashboard {
+            padding: 36px 20px;
+            text-align: center;
+            color: var(--texte-secondaire);
+        }
+
+        .grille-graphiques {
+            display: grid;
+            grid-template-columns: minmax(300px, 0.8fr) minmax(480px, 1.2fr);
+            gap: 22px;
+            margin-top: 22px;
+        }
+
+        .zone-graphique {
+            position: relative;
+            height: 310px;
+            margin-top: 20px;
+        }
+
+        .graphique-vide {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: var(--texte-secondaire);
+            text-align: center;
+        }
+
+        @media (max-width: 1100px) {
+            .grille-indicateurs-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grille-dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .grille-graphiques {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .grille-indicateurs-dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .analyse-recente {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .resume-analyse {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icone">FS</div>
+
+            <div>
+                <strong>FraudShield</strong>
+                <span>Analyse intelligente</span>
+            </div>
+        </div>
+
+        <nav class="navigation" aria-label="Navigation principale">
+
+            <a href="index.html" class="lien-navigation">
+                <span class="icone-navigation">⌂</span>
+                <span>Accueil</span>
+            </a>
+
+            <a href="dashboard.html" class="lien-navigation actif">
+                <span class="icone-navigation">▦</span>
+                <span>Tableau de bord</span>
+            </a>
+
+            <a href="prediction.html" class="lien-navigation">
+                <span class="icone-navigation">⌕</span>
+                <span>Nouvelle analyse</span>
+            </a>
+
+            <a href="fichier.html" class="lien-navigation">
+                <span class="icone-navigation">⇧</span>
+                <span>Analyse de fichier</span>
+            </a>
+
+            <a href="alertes.html" class="lien-navigation">
+                <span class="icone-navigation">!</span>
+                <span>Alertes</span>
+            </a>
+
+            <a href="historique.html" class="lien-navigation">
+                <span class="icone-navigation">↻</span>
+                <span>Historique</span>
+            </a>
+
+            <a href="apropos.html" class="lien-navigation">
+                <span class="icone-navigation">i</span>
+                <span>À propos</span>
+            </a>
+
+        </nav>
+
+        <div class="statut-systeme">
+            <span class="point-statut"></span>
+
+            <div>
+                <strong>Vérification de l’API</strong>
+                <small>Connexion en cours...</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <div class="application">
+
+        <header class="barre-superieure">
+
+            <button
+                type="button"
+                id="bouton-menu"
+                class="bouton-menu"
+                aria-label="Ouvrir le menu"
+            >
+                ☰
+            </button>
+
+            <div>
+                <p class="sur-titre">Vue d’ensemble</p>
+                <h1>Tableau de bord</h1>
+            </div>
+
+            <div class="profil">
+                <div class="profil-texte">
+                    <strong>Administrateur</strong>
+                    <span>Analyste fraude</span>
+                </div>
+
+                <div class="avatar">AD</div>
+            </div>
+
+        </header>
+
+
+        <main class="contenu">
+
+            <section class="entete-page">
+                <div>
+                    <span class="badge">Données enregistrées</span>
+
+                    <h2>Activité de détection</h2>
+
+                    <p>
+                        Suivez les analyses réalisées, les transactions
+                        traitées et les fraudes détectées par le modèle.
+                    </p>
+                </div>
+            </section>
+
+
+            <section class="grille-indicateurs-dashboard">
+
+                <article class="panneau indicateur-dashboard">
+                    <span>Analyses réalisées</span>
+                    <strong id="total-analyses">—</strong>
+                    <small>Analyses individuelles et fichiers CSV</small>
+                </article>
+
+                <article class="panneau indicateur-dashboard">
+                    <span>Transactions analysées</span>
+                    <strong id="total-transactions-dashboard">—</strong>
+                    <small>Total enregistré dans la base</small>
+                </article>
+
+                <article class="panneau indicateur-dashboard fraude">
+                    <span>Fraudes détectées</span>
+                    <strong id="total-fraudes-dashboard">—</strong>
+                    <small>Transactions à examiner en priorité</small>
+                </article>
+
+                <article class="panneau indicateur-dashboard">
+                    <span>Taux de fraude</span>
+                    <strong id="taux-fraude-dashboard">—</strong>
+                    <small>Part des transactions classées frauduleuses</small>
+                </article>
+
+            </section>
+
+
+            <section class="grille-dashboard">
+
+                <article class="panneau">
+
+                    <div class="entete-panneau">
+                        <div>
+                            <p class="sur-titre">Répartition</p>
+                            <h2>Décisions du modèle</h2>
+                        </div>
+                    </div>
+
+                    <div class="repartition">
+
+                        <div class="ligne-repartition">
+                            <span>Transactions légitimes</span>
+                            <strong id="nombre-legitimes">—</strong>
+
+                            <div class="barre-repartition">
+                                <i id="barre-legitimes"></i>
+                            </div>
+                        </div>
+
+                        <div class="ligne-repartition">
+                            <span>Fraudes détectées</span>
+                            <strong id="nombre-fraudes">—</strong>
+
+                            <div class="barre-repartition fraude">
+                                <i id="barre-fraudes"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="panneau">
+
+                    <div class="entete-panneau">
+                        <div>
+                            <p class="sur-titre">Activité récente</p>
+                            <h2>Dernières analyses</h2>
+                        </div>
+
+                        <a href="historique.html" class="lien-action">
+                            Voir l’historique →
+                        </a>
+                    </div>
+
+                    <div
+                        class="liste-analyses-dashboard"
+                        id="liste-analyses-dashboard"
+                    ></div>
+
+                    <p
+                        class="etat-dashboard cache"
+                        id="dashboard-vide"
+                    >
+                        Aucune analyse n’est encore enregistrée.
+                    </p>
+
+                </article>
+
+            </section>
+
+
+            <section class="grille-graphiques">
+
+                <article class="panneau">
+                    <div class="entete-panneau">
+                        <div>
+                            <p class="sur-titre">Vue globale</p>
+                            <h2>Répartition des transactions</h2>
+                        </div>
+                    </div>
+
+                    <div class="zone-graphique">
+                        <canvas
+                            id="graphique-repartition"
+                            aria-label="Répartition des transactions légitimes et frauduleuses"
+                        ></canvas>
+
+                        <p
+                            class="graphique-vide cache"
+                            id="repartition-vide"
+                        >
+                            Aucune transaction à représenter.
+                        </p>
+                    </div>
+                </article>
+
+
+                <article class="panneau">
+                    <div class="entete-panneau">
+                        <div>
+                            <p class="sur-titre">Comparaison</p>
+                            <h2>Fraudes par analyse récente</h2>
+                        </div>
+                    </div>
+
+                    <div class="zone-graphique">
+                        <canvas
+                            id="graphique-analyses"
+                            aria-label="Nombre de fraudes dans les analyses récentes"
+                        ></canvas>
+
+                        <p
+                            class="graphique-vide cache"
+                            id="analyses-vides"
+                        >
+                            Aucune analyse à représenter.
+                        </p>
+                    </div>
+                </article>
+
+            </section>
+
+        </main>
+
+
+        <footer class="pied-page">
+            <p>FraudShield — Tableau de bord</p>
+            <p>Données issues des analyses enregistrées dans SQLite</p>
+        </footer>
+
+    </div>
+
+
+    <div id="fond-menu" class="fond-menu"></div>
+
+    <div
+        id="notification"
+        class="notification"
+        role="status"
+    ></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+    <script src="js/commun.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

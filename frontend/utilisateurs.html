@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilisateurs — FraudShield</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .grille-utilisateurs{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:22px}.conteneur-tableau{overflow-x:auto}.tableau-utilisateurs{width:100%;border-collapse:collapse}.tableau-utilisateurs th,.tableau-utilisateurs td{padding:14px 12px;border-bottom:1px solid var(--bordure);text-align:left;white-space:nowrap}.tableau-utilisateurs th{color:var(--texte-secondaire);font-size:.75rem;text-transform:uppercase}.badge-role,.badge-etat{display:inline-block;padding:6px 9px;border-radius:999px;font-size:.76rem;font-weight:700}.administrateur{background:rgba(168,85,247,.14);color:#c084fc}.analyste{background:rgba(59,130,246,.14);color:#60a5fa}.actif{background:rgba(34,197,94,.14);color:#4ade80}.inactif{background:rgba(239,68,68,.14);color:#f87171}.bouton-activation{padding:7px 10px;border:1px solid var(--bordure);border-radius:8px;background:var(--panneau-clair);color:var(--texte)}.formulaire-utilisateur{display:grid;gap:16px;margin-top:18px}.formulaire-utilisateur label{display:grid;gap:8px;font-weight:700}.formulaire-utilisateur input,.formulaire-utilisateur select{padding:12px 14px;border:1px solid var(--bordure);border-radius:10px;background:var(--fond-secondaire);color:var(--texte)}.formulaire-utilisateur small{color:var(--texte-secondaire);font-weight:400}.etat-vide{padding:32px;text-align:center;color:var(--texte-secondaire)}@media(max-width:950px){.grille-utilisateurs{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+    <div class="logo"><div class="logo-icone">FS</div><div><strong>FraudShield</strong><span>Analyse intelligente</span></div></div>
+    <nav class="navigation" aria-label="Navigation principale">
+        <a href="index.html" class="lien-navigation"><span class="icone-navigation">⌂</span><span>Accueil</span></a><a href="dashboard.html" class="lien-navigation"><span class="icone-navigation">▦</span><span>Tableau de bord</span></a><a href="prediction.html" class="lien-navigation"><span class="icone-navigation">⌕</span><span>Nouvelle analyse</span></a><a href="fichier.html" class="lien-navigation"><span class="icone-navigation">⇧</span><span>Analyse de fichier</span></a><a href="alertes.html" class="lien-navigation"><span class="icone-navigation">!</span><span>Alertes</span></a><a href="historique.html" class="lien-navigation"><span class="icone-navigation">↻</span><span>Historique</span></a><a href="utilisateurs.html" class="lien-navigation actif lien-administration"><span class="icone-navigation">♙</span><span>Utilisateurs</span></a><a href="apropos.html" class="lien-navigation"><span class="icone-navigation">i</span><span>À propos</span></a>
+    </nav>
+    <div class="statut-systeme"><span class="point-statut"></span><div><strong>Vérification de l’API</strong><small>Connexion en cours...</small></div></div>
+</aside>
+<div class="application">
+    <header class="barre-superieure"><button type="button" id="bouton-menu" class="bouton-menu">☰</button><div><p class="sur-titre">Administration</p><h1>Gestion des utilisateurs</h1></div><div class="profil"><div class="profil-texte"><strong>Administrateur</strong><span>Gestion des accès</span></div><div class="avatar">AD</div></div></header>
+    <main class="contenu">
+        <section class="entete-page"><div><span class="badge">Accès administrateur</span><h2>Comptes FraudShield</h2><p>Créez les comptes analystes et contrôlez leur accès à l’application.</p></div></section>
+        <section class="grille-utilisateurs">
+            <article class="panneau"><div class="entete-panneau"><div><p class="sur-titre">Comptes enregistrés</p><h2>Utilisateurs</h2></div><span id="nombre-utilisateurs" class="compteur-champs">0 compte</span></div><div class="conteneur-tableau"><table class="tableau-utilisateurs"><thead><tr><th>Nom</th><th>Identifiant</th><th>Rôle</th><th>État</th><th>Création</th><th>Action</th></tr></thead><tbody id="corps-utilisateurs"></tbody></table></div><p id="utilisateurs-vides" class="etat-vide cache">Aucun utilisateur.</p></article>
+            <article class="panneau"><div class="entete-panneau"><div><p class="sur-titre">Nouveau compte</p><h2>Créer un utilisateur</h2></div></div><form id="formulaire-utilisateur" class="formulaire-utilisateur"><label>Nom complet<input id="nom-utilisateur" minlength="2" maxlength="100" required></label><label>Identifiant<input id="identifiant-utilisateur" minlength="3" maxlength="50" pattern="[a-zA-Z0-9._-]+" required><small>Lettres, chiffres, point, tiret ou underscore.</small></label><label>Rôle<select id="role-utilisateur"><option value="analyste">Analyste</option><option value="administrateur">Administrateur</option></select></label><label>Mot de passe initial<input id="mot-passe-utilisateur" type="password" minlength="12" maxlength="200" required><small>Au moins 12 caractères.</small></label><button id="creer-utilisateur" type="submit" class="bouton bouton-principal">Créer le compte</button></form></article>
+        </section>
+    </main>
+    <footer class="pied-page"><p>FraudShield — Administration</p><p>Les mots de passe sont stockés sous forme hachée</p></footer>
+</div><div id="fond-menu" class="fond-menu"></div><div id="notification" class="notification" role="status"></div>
+<script src="js/commun.js"></script><script src="js/utilisateurs.js"></script>
+</body></html>

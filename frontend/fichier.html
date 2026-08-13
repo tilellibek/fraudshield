@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Analyse de fichier — FraudShield</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .tableau-resultats {
+            margin-top: 24px;
+        }
+
+        .barre-tableau {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .filtre-risque {
+            min-width: 180px;
+            padding: 10px 12px;
+            border: 1px solid #dbe2ea;
+            border-radius: 8px;
+            background: #fff;
+            color: #263238;
+        }
+
+        .conteneur-tableau {
+            overflow-x: auto;
+        }
+
+        .transactions-tableau {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+        }
+
+        .transactions-tableau th,
+        .transactions-tableau td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #edf0f3;
+            text-align: left;
+        }
+
+        .transactions-tableau th {
+            color: #607080;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-risque,
+        .badge-decision {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .risque-eleve,
+        .decision-fraude {
+            background: #fde8e8;
+            color: #c62828;
+        }
+
+        .risque-moyen {
+            background: #fff3d6;
+            color: #a96400;
+        }
+
+        .risque-faible,
+        .decision-legitime {
+            background: #e5f6ec;
+            color: #16794a;
+        }
+
+        .aucun-resultat-tableau {
+            padding: 28px;
+            text-align: center;
+            color: #6b7785;
+        }
+
+        @media (max-width: 700px) {
+            .barre-tableau {
+                align-items: stretch;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+            <div class="logo">
+                <div class="logo-icone">FS</div>
+
+                <div>
+                    <strong>FraudShield</strong>
+                    <span>Analyse intelligente</span>
+                </div>
+            </div>
+
+            <nav class="navigation">
+
+                <a href="index.html" class="lien-navigation">
+                    <span class="icone-navigation">⌂</span>
+                    <span>Accueil</span>
+                </a>
+
+                <a href="dashboard.html" class="lien-navigation">
+                    <span class="icone-navigation">▦</span>
+                    <span>Tableau de bord</span>
+                </a>
+
+                <a href="prediction.html" class="lien-navigation">
+                    <span class="icone-navigation">⌕</span>
+                    <span>Nouvelle analyse</span>
+                </a>
+
+                <a href="fichier.html" class="lien-navigation actif">
+                    <span class="icone-navigation">⇧</span>
+                    <span>Analyse de fichier</span>
+                </a>
+
+                <a href="alertes.html" class="lien-navigation">
+                    <span class="icone-navigation">!</span>
+                    <span>Alertes</span>
+                </a>
+
+                <a href="historique.html" class="lien-navigation">
+                    <span class="icone-navigation">↻</span>
+                    <span>Historique</span>
+                </a>
+
+                <a href="apropos.html" class="lien-navigation">
+                    <span class="icone-navigation">i</span>
+                    <span>À propos</span>
+                </a>
+
+            </nav>
+
+            <div class="statut-systeme">
+
+                <span class="point-statut"></span>
+
+                <div>
+                    <strong>Vérification de l’API</strong>
+                    <small>Connexion en cours...</small>
+                </div>
+
+            </div>
+
+    </aside>
+
+
+    <div class="application">
+
+            <header class="barre-superieure">
+
+                <button
+                    type="button"
+                    class="bouton-menu"
+                    id="bouton-menu"
+                    aria-label="Ouvrir le menu"
+                >
+                    ☰
+                </button>
+
+                <div>
+                    <span class="sur-titre">Analyse en lot</span>
+                    <h1>Analyse de fichier</h1>
+                </div>
+
+                <div class="profil">
+
+                    <div class="profil-texte">
+                        <strong>Administrateur</strong>
+                        <span>Analyste fraude</span>
+                    </div>
+
+                    <div class="avatar">AD</div>
+
+                </div>
+
+            </header>
+
+
+            <main class="contenu">
+
+                <section class="entete-page">
+
+                    <div>
+                        <span class="badge">Analyse en lot</span>
+
+                        <h2>Analyser un fichier de transactions</h2>
+
+                        <p>
+                            Importez un fichier CSV contenant plusieurs
+                            transactions. FraudShield analysera chaque ligne
+                            et identifiera les opérations présentant un risque
+                            de fraude.
+                        </p>
+                    </div>
+
+                </section>
+
+
+                <div class="grille-fichier">
+
+                    <section class="panneau panneau-importation">
+
+                        <div class="entete-panneau">
+
+                            <div>
+                                <p class="sur-titre">Fichier d’entrée</p>
+                                <h2>Importer les transactions</h2>
+                            </div>
+
+                            <span class="compteur-champs">
+                                Format CSV
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="zone-depot"
+                            id="zone-depot"
+                            tabindex="0"
+                            role="button"
+                        >
+
+                            <input
+                                type="file"
+                                id="fichier-csv"
+                                accept=".csv,text/csv"
+                                hidden
+                            >
+
+                            <div class="icone-depot">⇧</div>
+
+                            <h3>Déposez votre fichier CSV ici</h3>
+
+                            <p>
+                                ou cliquez pour sélectionner un fichier
+                            </p>
+
+                            <button
+                                type="button"
+                                class="bouton bouton-secondaire"
+                                id="bouton-selectionner"
+                            >
+                                Choisir un fichier
+                            </button>
+
+                            <small>
+                                Taille maximale recommandée : 20 Mo
+                            </small>
+
+                        </div>
+
+
+                        <div
+                            class="fichier-selectionne cache"
+                            id="fichier-selectionne"
+                        >
+
+                            <div class="icone-csv">CSV</div>
+
+                            <div class="details-fichier">
+                                <strong id="nom-fichier">—</strong>
+                                <span id="taille-fichier">—</span>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="bouton-suppression"
+                                id="bouton-supprimer-fichier"
+                                aria-label="Supprimer le fichier"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+
+                        <div class="colonnes-attendues">
+
+                            <h3>Colonnes attendues</h3>
+
+                            <p>
+                                Le fichier doit contenir les 11 variables
+                                utilisées par le modèle :
+                            </p>
+
+                            <div class="liste-colonnes">
+                                <code>log_amt</code>
+                                <code>age</code>
+                                <code>hour</code>
+                                <code>day_of_week</code>
+                                <code>month</code>
+                                <code>is_weekend</code>
+                                <code>is_night</code>
+                                <code>distance_km</code>
+                                <code>log_city_pop</code>
+                                <code>category</code>
+                                <code>gender</code>
+                            </div>
+
+                            <p class="note-colonnes">
+                                Les colonnes doivent porter exactement ces
+                                noms. Chaque ligne représente une transaction.
+                            </p>
+
+                        </div>
+
+
+                        <div class="actions-formulaire">
+
+                            <button
+                                type="button"
+                                class="bouton bouton-secondaire"
+                                id="bouton-modele-csv"
+                            >
+                                Télécharger un modèle CSV
+                            </button>
+
+                            <button
+                                type="button"
+                                class="bouton bouton-principal"
+                                id="bouton-analyser-fichier"
+                                disabled
+                            >
+                                <span id="texte-analyse-fichier">
+                                    Analyser le fichier
+                                </span>
+
+                                <span
+                                    id="chargement-fichier"
+                                    class="chargement cache"
+                                ></span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <aside class="colonne-fichier">
+
+                        <section
+                            class="panneau resultat-vide"
+                            id="resultat-fichier-vide"
+                        >
+
+                            <div class="icone-attente">CSV</div>
+
+                            <h2>En attente d’un fichier</h2>
+
+                            <p>
+                                Sélectionnez un fichier CSV pour lancer
+                                l’analyse de plusieurs transactions.
+                            </p>
+
+                        </section>
+
+
+                        <section
+                            class="panneau resume-fichier cache"
+                            id="resume-fichier"
+                        >
+
+                            <div class="entete-panneau">
+
+                                <div>
+                                    <p class="sur-titre">Résultats</p>
+                                    <h2>Résumé de l’analyse</h2>
+                                </div>
+
+                            </div>
+
+
+                            <div class="statistiques-fichier">
+
+                                <div class="statistique-fichier">
+                                    <span>Transactions</span>
+
+                                    <strong id="total-transactions">
+                                        0
+                                    </strong>
+                                </div>
+
+                                <div
+                                    class="statistique-fichier legitime"
+                                >
+                                    <span>Légitimes</span>
+
+                                    <strong id="total-legitimes">
+                                        0
+                                    </strong>
+                                </div>
+
+                                <div class="statistique-fichier fraude">
+                                    <span>Fraudes détectées</span>
+
+                                    <strong id="total-fraudes">
+                                        0
+                                    </strong>
+                                </div>
+
+                                <div class="statistique-fichier">
+                                    <span>Taux de fraude</span>
+
+                                    <strong id="taux-fraude">
+                                        0 %
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="bouton bouton-principal bouton-large"
+                                id="bouton-telecharger-resultats"
+                            >
+                                Télécharger les résultats
+                            </button>
+
+                        </section>
+
+                    </aside>
+
+                </div>
+
+                <section
+                    class="panneau tableau-resultats cache"
+                    id="tableau-resultats"
+                >
+                    <div class="barre-tableau">
+                        <div>
+                            <p class="sur-titre">Priorisation des alertes</p>
+                            <h2>Transactions analysées</h2>
+                            <p>
+                                Les opérations sont classées de la plus risquée
+                                à la moins risquée.
+                            </p>
+                        </div>
+
+                        <label>
+                            <span class="sur-titre">Filtrer le risque</span>
+                            <select
+                                class="filtre-risque"
+                                id="filtre-risque"
+                            >
+                                <option value="tous">Tous les niveaux</option>
+                                <option value="eleve">Risque élevé</option>
+                                <option value="moyen">Risque moyen</option>
+                                <option value="faible">Risque faible</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="conteneur-tableau">
+                        <table class="transactions-tableau">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Risque</th>
+                                    <th>Probabilité</th>
+                                    <th>Montant (log)</th>
+                                    <th>Catégorie</th>
+                                    <th>Heure</th>
+                                    <th>Décision</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corps-tableau-resultats"></tbody>
+                        </table>
+                    </div>
+
+                    <p
+                        class="aucun-resultat-tableau cache"
+                        id="aucun-resultat-tableau"
+                    >
+                        Aucune transaction ne correspond à ce filtre.
+                    </p>
+                </section>
+
+            </main>
+
+
+            <footer class="pied-page">
+
+                <p>FraudShield — Analyse de fichier</p>
+
+                <p>
+                    Les transactions détectées doivent être vérifiées
+                    par un analyste fraude.
+                </p>
+
+            </footer>
+
+    </div>
+
+
+    <div class="fond-menu" id="fond-menu"></div>
+
+
+    <div
+        class="notification"
+        id="notification"
+        role="status"
+    ></div>
+
+
+    <script src="js/commun.js"></script>
+    <script src="js/fichier.js"></script>
+
+</body>
+
+</html>

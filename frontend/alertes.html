@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertes — FraudShield</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .grille-statuts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}.carte-statut span,.carte-statut small{display:block;color:var(--texte-secondaire)}.carte-statut strong{display:block;margin:12px 0 7px;font-size:2rem}.carte-statut.danger strong{color:var(--rouge)}
+        .barre-alertes{display:flex;gap:12px;margin-bottom:20px}.barre-alertes input,.barre-alertes select,.formulaire-alerte select,.formulaire-alerte textarea{padding:12px 14px;border:1px solid var(--bordure);border-radius:10px;background:var(--fond-secondaire);color:var(--texte)}.barre-alertes input{flex:1}.conteneur-tableau{overflow-x:auto}.tableau-alertes{width:100%;border-collapse:collapse}.tableau-alertes th,.tableau-alertes td{padding:14px 12px;border-bottom:1px solid var(--bordure);text-align:left;white-space:nowrap}.tableau-alertes th{color:var(--texte-secondaire);font-size:.75rem;text-transform:uppercase}.badge-statut,.badge-risque{display:inline-block;padding:6px 9px;border-radius:999px;font-size:.76rem;font-weight:700}.a_verifier{background:rgba(245,158,11,.14);color:#fbbf24}.en_cours{background:rgba(59,130,246,.14);color:#60a5fa}.fraude_confirmee,.risque-eleve{background:rgba(239,68,68,.14);color:#f87171}.legitime{background:rgba(34,197,94,.14);color:#4ade80}.bouton-traiter{padding:7px 11px;border:1px solid rgba(59,130,246,.35);border-radius:8px;background:rgba(59,130,246,.12);color:var(--bleu-clair)}.etat-alertes{padding:38px;text-align:center;color:var(--texte-secondaire)}.traitement-alerte{margin-top:22px}.resume-alerte{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.resume-alerte div{padding:15px;border:1px solid var(--bordure);border-radius:11px;background:var(--panneau-clair)}.resume-alerte span,.resume-alerte strong{display:block}.resume-alerte span{color:var(--texte-secondaire);font-size:.78rem}.resume-alerte strong{margin-top:7px}.formulaire-alerte{display:grid;gap:14px}.formulaire-alerte label{display:grid;gap:8px}.formulaire-alerte textarea{min-height:120px;resize:vertical}.actions-traitement{display:flex;justify-content:flex-end;gap:12px}@media(max-width:900px){.grille-statuts,.resume-alerte{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.grille-statuts,.resume-alerte{grid-template-columns:1fr}.barre-alertes{flex-direction:column}}
+    </style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+    <div class="logo"><div class="logo-icone">FS</div><div><strong>FraudShield</strong><span>Analyse intelligente</span></div></div>
+    <nav class="navigation" aria-label="Navigation principale">
+        <a href="index.html" class="lien-navigation"><span class="icone-navigation">⌂</span><span>Accueil</span></a>
+        <a href="dashboard.html" class="lien-navigation"><span class="icone-navigation">▦</span><span>Tableau de bord</span></a>
+        <a href="prediction.html" class="lien-navigation"><span class="icone-navigation">⌕</span><span>Nouvelle analyse</span></a>
+        <a href="fichier.html" class="lien-navigation"><span class="icone-navigation">⇧</span><span>Analyse de fichier</span></a>
+        <a href="alertes.html" class="lien-navigation actif"><span class="icone-navigation">!</span><span>Alertes</span></a>
+        <a href="historique.html" class="lien-navigation"><span class="icone-navigation">↻</span><span>Historique</span></a>
+        <a href="apropos.html" class="lien-navigation"><span class="icone-navigation">i</span><span>À propos</span></a>
+    </nav>
+    <div class="statut-systeme"><span class="point-statut"></span><div><strong>Vérification de l’API</strong><small>Connexion en cours...</small></div></div>
+</aside>
+<div class="application">
+    <header class="barre-superieure"><button type="button" id="bouton-menu" class="bouton-menu">☰</button><div><p class="sur-titre">Traitement métier</p><h1>Gestion des alertes</h1></div><div class="profil"><div class="profil-texte"><strong>Administrateur</strong><span>Analyste fraude</span></div><div class="avatar">AD</div></div></header>
+    <main class="contenu">
+        <section class="entete-page"><div><span class="badge">Transactions suspectes</span><h2>Alertes à examiner</h2><p>Priorisez les alertes du modèle, documentez les vérifications et enregistrez votre décision.</p></div></section>
+        <section class="grille-statuts">
+            <article class="panneau carte-statut"><span>Total</span><strong id="compteur-total">—</strong><small>Alertes détectées</small></article>
+            <article class="panneau carte-statut"><span>À vérifier</span><strong id="compteur-verifier">—</strong><small>En attente de traitement</small></article>
+            <article class="panneau carte-statut"><span>En cours</span><strong id="compteur-cours">—</strong><small>Investigations ouvertes</small></article>
+            <article class="panneau carte-statut danger"><span>Confirmées</span><strong id="compteur-confirmees">—</strong><small>Fraudes validées</small></article>
+        </section>
+        <section class="panneau">
+            <div class="barre-alertes"><input id="recherche-alertes" type="search" placeholder="Rechercher un fichier ou une catégorie..."><select id="filtre-statut"><option value="tous">Tous les statuts</option><option value="a_verifier">À vérifier</option><option value="en_cours">En cours</option><option value="fraude_confirmee">Fraude confirmée</option><option value="legitime">Légitime</option></select></div>
+            <div class="conteneur-tableau"><table class="tableau-alertes"><thead><tr><th>Risque</th><th>Probabilité</th><th>Fichier</th><th>Ligne</th><th>Catégorie</th><th>Heure</th><th>Statut</th><th>Action</th></tr></thead><tbody id="corps-alertes"></tbody></table></div>
+            <p id="alertes-vides" class="etat-alertes cache">Aucune alerte.</p>
+        </section>
+        <section id="traitement-alerte" class="panneau traitement-alerte cache">
+            <div class="entete-panneau"><div><p class="sur-titre">Décision de l’analyste</p><h2 id="titre-alerte">Traiter l’alerte</h2></div><button id="fermer-alerte" type="button" class="bouton bouton-secondaire">Fermer</button></div>
+            <div class="resume-alerte"><div><span>Probabilité</span><strong id="detail-probabilite">—</strong></div><div><span>Catégorie</span><strong id="detail-categorie">—</strong></div><div><span>Heure</span><strong id="detail-heure">—</strong></div><div><span>Date d’analyse</span><strong id="detail-date">—</strong></div></div>
+            <form id="formulaire-alerte" class="formulaire-alerte"><label>Statut<select id="statut-alerte" required><option value="a_verifier">À vérifier</option><option value="en_cours">En cours</option><option value="fraude_confirmee">Fraude confirmée</option><option value="legitime">Légitime</option></select></label><label>Commentaire<textarea id="commentaire-alerte" maxlength="1000" placeholder="Décrivez les vérifications effectuées..."></textarea></label><div class="actions-traitement"><button type="submit" id="enregistrer-alerte" class="bouton bouton-principal">Enregistrer la décision</button></div></form>
+        </section>
+    </main>
+    <footer class="pied-page"><p>FraudShield — Gestion des alertes</p><p>La décision finale appartient à l’analyste fraude</p></footer>
+</div>
+<div id="fond-menu" class="fond-menu"></div><div id="notification" class="notification" role="status"></div>
+<script src="js/commun.js"></script><script src="js/alertes.js"></script>
+</body></html>
