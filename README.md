@@ -124,7 +124,6 @@ FRONTEND_URL=http://127.0.0.1:8000
 ENVIRONMENT=development
 ```
 
-Ne publiez jamais le fichier `.env` ni les véritables identifiants de connexion.
 
 ### 5. Démarrer l’application
 
@@ -155,10 +154,6 @@ L’état du service peut être vérifié ici :
 * contrôle des rôles ;
 * secrets conservés dans les variables d’environnement Render ;
 * accès à PostgreSQL par une URL privée en production.
-
-## Contexte
-
-Ce projet a été réalisé dans le cadre d’un mémoire de Master 2 portant sur la détection de fraudes dans les transactions bancaires par intelligence artificielle.
 
 ## Auteur
 
